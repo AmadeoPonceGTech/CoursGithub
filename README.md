@@ -1,5 +1,7 @@
 # CoursGithub 
 
+https://education.github.com/git-cheat-sheet-education.pdf
+
 ## 1. Versioning
 
 Le versioning est un système permettant de suivre l'évolution d'un projet au cours du temps en conservant un ***historique des modifications*** . <br>
@@ -17,8 +19,6 @@ Il fonctionne autour d'un dépôt (repository), qui contient les fichiers du pro
 Git permet notamment d'enregistrer des modifications, de consulter et comparer différentes versions du projet, de travailler avec des branches et de revenir sur certains changements en cas de problème. <br>
 Il peut fonctionner entièrement en local, sans dépendre de GitHub ni d'une connexion Internet, notamment grâce à des commandes exécutées dans un terminal comme Git Bash. <br>
 Les différentes opérations de Git peuvent également être réalisées à travers des interfaces graphiques, comme GitHub Desktop ou certaines fonctionnalités des IDE.
-
-### Git Bash
 
 ### GitHub
 
@@ -221,9 +221,7 @@ L'objectif principal des branches est donc de séparer les différentes lignes d
 
 Une branche ne supprime cependant pas les conflits : si plusieurs branches modifient les mêmes parties d'un fichier de manière incompatible, un conflit peut apparaître lors de leur fusion.
 
-### À retenir
-
-```Une branche permet de créer une ligne de développement séparée afin de travailler sur une fonctionnalité ou une tâche sans modifier directement une autre branche. ```
+### À retenir :Une branche permet de créer une ligne de développement séparée afin de travailler sur une fonctionnalité ou une tâche sans modifier directement une autre branche. ```
 
 ## 7. Nomenclature des branches
 
@@ -253,8 +251,7 @@ Ce type de convention est particulièrement utile dans une équipe, car elle per
 
 Il existe beaucoup de conventions différentes selon les équipes et les studios. L'important est surtout de choisir une convention commune et de la respecter. Dans un projet personnel, vous êtes évidemment libres d'utiliser les noms qui vous conviennent, mais dans un projet d'équipe, il vaut mieux éviter de donner des noms arbitraires aux branches.
 
-### À retenir : 
-il n'existe pas une nomenclature obligatoire pour les branches. On utilise principalement des conventions communes pour rendre leur rôle immédiatement compréhensible.
+### À retenir : il n'existe pas une nomenclature obligatoire pour les branches. On utilise principalement des conventions communes pour rendre leur rôle immédiatement compréhensible.
 
 ## 8. Organisation des branches
 
@@ -293,14 +290,134 @@ Dans ce fonctionnement, les développeurs travaillent sur leurs branches, leurs 
 
 Ce fonctionnement reste une convention d'équipe : Git n'impose pas cette organisation.
 
-### À retenir : 
-on développe principalement sur des branches séparées, puis on intègre le travail dans les branches communes selon le workflow de l'équipe.
+### À retenir : on développe principalement sur des branches séparées, puis on intègre le travail dans les branches communes selon le workflow de l'équipe.
+
 ## 9. Merge
-## 10. Pull Request
-## 11. Résolution des conflits
-## 12. Synchronisation et workflow d'équipe
-## 13. Annulation / Revert
-## 14. Avantages et limites de Git/GitHub
-## 15. Git dans les projets de jeux vidéo
-## 16. Erreurs et risques
-## 17. Tags / Releases
+
+Un merge, qui signifie littéralement fusion, permet de réunir les modifications d'une branche avec une autre branche.
+
+Le cas le plus courant est de terminer une fonctionnalité sur une branche, puis de fusionner cette branche dans la branche principale.
+
+    main
+    ↑
+    └── dev/shoot
+
+Une fois dev/shoot terminée et vérifiée, on peut effectuer un merge vers main.
+
+Il est cependant possible de faire un merge entre n'importe quelles branches. Par exemple, une branche peut être fusionnée dans une autre branche de développement avant que le résultat soit lui-même intégré dans main.
+
+### Comment Git gère les modifications ?
+
+Git ne remplace pas simplement tous les fichiers de la branche par ceux de l'autre branche. Il analyse les modifications réalisées sur chacune des branches depuis leur point commun.
+
+Par exemple, si une personne modifie le fichier A tandis qu'une autre ajoute simplement un nouveau fichier B, Git peut généralement réunir les deux changements automatiquement :
+
+    Branche 1 → modification de A
+    Branche 2 → ajout de B
+
+             ↓ MERGE
+
+       modification de A
+       + ajout de B
+
+### Et si les deux personnes modifient la même chose ?
+
+C'est là qu'un conflit peut apparaître.
+
+Par exemple, si deux branches modifient différemment la même partie d'un fichier, Git peut ne pas être capable de déterminer quelle modification doit être conservée.
+
+Dans ce cas, Git signale un conflit et demande à l'utilisateur de choisir ou reconstruire la version correcte avant de terminer le merge.
+
+C'est pour cette raison qu'il est important de se tenir régulièrement à jour et de tester son travail avant de l'intégrer.
+
+Le merge est donc une étape importante dans le workflow : il permet de faire avancer le projet en réunissant le travail de plusieurs branches, mais il doit être effectué sur du travail suffisamment vérifié pour éviter d'introduire des problèmes dans une branche commune.
+
+### À retenir : un merge permet de fusionner les modifications d'une branche avec une autre. Git essaie d'effectuer cette fusion automatiquement et signale un conflit lorsqu'il ne peut pas déterminer correctement comment combiner les modifications.
+
+## 10. Annulation / Revert
+
+Un revert permet d'annuler les effets d'une modification déjà enregistrée dans l'historique Git. Il peut notamment être utilisé pour annuler un commit ou un merge.
+
+C'est une solution utile lorsqu'une modification introduit un problème et qu'il est plus simple de revenir à l'état précédent que de corriger directement le problème.
+
+L'un des avantages du versioning est justement de pouvoir revenir sur une modification en cas d'erreur, à condition d'avoir correctement enregistré son travail dans Git.
+
+Sur GitHub Desktop, il est notamment possible de sélectionner un commit et d'utiliser l'option Revert Changes in Commit pour créer une nouvelle modification qui annule les changements du commit concerné.
+
+Il faut cependant éviter de confondre revert et force push : le revert conserve l'historique Git et ajoute une nouvelle opération qui annule les changements. Le force push, lui, peut réécrire l'historique distant et peut donc provoquer des problèmes pour les autres membres de l'équipe.
+
+### À retenir : le revert permet d'annuler proprement les effets d'un commit ou d'un merge tout en conservant l'historique du projet.
+
+## 11. Pull Request
+
+Une Pull Request, ou PR, est une demande permettant de proposer l'intégration d'une branche dans une autre.
+
+On peut simplement la voir comme une demande de merge qui peut être vérifiée par d'autres membres de l'équipe.
+
+Par exemple, lorsqu'on a terminé une fonctionnalité sur notre branche, au lieu de fusionner directement dans main, on peut créer une Pull Request sur GitHub.
+
+    Branche de travail
+    ↓
+    Pull Request
+    ↓
+    Vérification
+    ↓
+    Merge
+    ↓
+    main
+
+La Pull Request permet notamment de donner un titre et une description, de voir les modifications qui vont être intégrées et, selon l'organisation du projet, de demander à d'autres membres de l'équipe de les vérifier.
+
+La personne chargée de la revue peut alors accepter la Pull Request, demander des modifications ou signaler un problème avant que le merge soit effectué.
+
+C'est donc particulièrement utile dans les projets où l'on veut éviter qu'une personne puisse directement intégrer n'importe quelle modification dans une branche importante.
+
+Les Pull Requests sont surtout utilisées dans les projets avec une organisation plus structurée. Dans un petit projet ou au début de votre apprentissage, vous pouvez très bien effectuer directement vos merges en vous coordonnant entre vous.
+
+Il n'existe pas non plus de moment obligatoire pour créer une Pull Request. Certaines équipes en utilisent régulièrement, d'autres regroupent plusieurs intégrations à certains moments du projet. Le fonctionnement dépend du workflow de l'équipe.
+
+### À retenir : une Pull Request est une demande d'intégration d'une branche, qui permet notamment de faire vérifier les modifications avant leur merge.
+
+## 12. Résolution des conflits
+
+Un conflit apparaît lorsque Git n'arrive pas à déterminer automatiquement comment combiner deux modifications incompatibles.
+
+Lorsqu'un conflit est détecté, Git peut afficher le fichier concerné comme problématique. Dans le fichier, on retrouve notamment des marqueurs comme :
+
+        <<<<<<< HEAD
+        std::cout << "Bonjour depuis main !" << std::endl;
+        =======
+        std::cout << "Bonjour depuis dev-1 !" << std::endl;
+        >>>>>>> dev-1
+- HEAD → version de la branche actuelle.
+- séparation entre les deux versions.
+- dev-1 → version provenant de la branche fusionnée.
+
+Il faut alors choisir ou combiner les modifications, puis supprimer les marqueurs avant de terminer le merge.
+
+### À retenir : Git détecte le conflit, mais c'est à nous de décider quelle version doit être conservée.
+
+
+## 13. Avantages et limites de Git/GitHub
+
+Git et GitHub sont particulièrement adaptés aux projets contenant principalement du code. Les fichiers comme les ```.cpp```, ```.h```, ```.cs``` ou autres fichiers texte sont généralement très bien gérés par Git, notamment grâce à la possibilité de comparer facilement les modifications entre différentes versions.
+
+La principale difficulté apparaît lorsque les projets deviennent plus importants et contiennent beaucoup de fichiers binaires, comme des ```.png```, ```.jpg```, ```.mp3```, ```.mp4```, mais également certains fichiers utilisés par des moteurs comme Unreal Engine ou Unity. Git peut gérer ces fichiers, mais il est beaucoup moins adapté pour les versionner efficacement, notamment lorsqu'ils sont volumineux ou modifiés régulièrement.
+
+GitHub impose également certaines limites. Par exemple, un fichier de plus de 100 Mo ne peut pas être ajouté à un dépôt Git classique sur GitHub. Pour les fichiers volumineux, il existe notamment Git LFS (Git Large File Storage), qui permet de gérer ces fichiers différemment. 
+
+Plus un projet devient important, plus il faut donc réfléchir à la manière dont les fichiers sont stockés et versionnés. Pour un projet de programmation classique, Git fonctionne très bien. En revanche, pour un projet de jeu vidéo contenant beaucoup d'assets et de fichiers binaires volumineux, il peut être nécessaire d'utiliser Git LFS ou d'autres solutions de stockage adaptées.
+
+## 14. Tags 
+
+Un tag permet d'identifier précisément une version particulière du projet en l'associant à un commit précis.
+
+Il peut notamment être utilisé lorsqu'une version du projet est considérée comme finalisée et vérifiée, par exemple pour un rendu. On peut alors créer un tag comme Gold, v1.0 ou Final afin de pouvoir retrouver facilement cette version par la suite.
+
+L'intérêt est donc de pouvoir dire : « Ce commit correspond à notre version finale. »
+
+Même si le projet continue ensuite à évoluer, le tag reste associé au commit sur lequel il a été créé. Il permet donc de retrouver exactement l'état du projet à ce moment-là.
+ 
+    Développement → Tests → Corrections → Version finale
+    ↓
+    TAG : Gold
