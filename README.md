@@ -101,14 +101,14 @@ Il ne faut cependant pas confondre un commit avec un simple Ctrl + S. Lorsque l'
 
 Par exemple, imaginons que l'on ajoute une nouvelle fonction à notre projet. Une fois la modification terminée et vérifiée, on peut créer un commit :
 
-Modification du code
-↓
-Vérification
-↓
-COMMIT
-↓
-Enregistrement dans
-l'historique Git
+    Modification du code
+    ↓
+    Vérification
+    ↓
+    COMMIT
+    ↓
+    Enregistrement dans
+    l'historique Git
 
 Chaque commit possède notamment un message, qui permet de comprendre rapidement ce qui a été modifié. Dans GitHub Desktop, on peut renseigner un titre court ainsi qu'une description plus détaillée.
 
